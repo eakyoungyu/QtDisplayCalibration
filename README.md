@@ -17,7 +17,16 @@ Display calibration GUI clone coding using Qt and QML
 | brightness: int |
 | contrast: int   |
 
+## GUI components
+- ColumLayout
+- StackLayout
+- TabBar
+- Slider
+- ColorSlider (custom)
+- ColorGradientBar (custom)
+
 ## Connect QObject and QML by using Q_PROPERTY
+*display.h*
 ```
     Q_PROPERTY(double red READ getRed WRITE setRed NOTIFY colorChanged)
     Q_PROPERTY(double green READ getGreen WRITE setGreen NOTIFY colorChanged)
@@ -26,6 +35,7 @@ Display calibration GUI clone coding using Qt and QML
     Q_PROPERTY(int contrast READ getContrast WRITE setContrast NOTIFY contrastChanged)
 ```
 ## Change a display color by using Connections between QObject and component
+*main.qml*
 ```
     Connections {
         target: myDisplay
