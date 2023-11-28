@@ -18,6 +18,7 @@ qt_add_qml_module(appDisplayCalibrationTool
     QML_FILES Main.qml
     QML_FILES ColorSlider.qml
     QML_FILES ColorGradientBar.qml
+    SOURCES display.h display.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

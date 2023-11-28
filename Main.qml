@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import DisplayModule
+
 Window {
     id: root
     width: 640
@@ -11,6 +13,14 @@ Window {
     property real alphaChannel: 1
     property real subWidth: width * 0.8
 
+    Connections {
+        target: myDisplay
+        onColorChanged: {
+            console.log("Color changed to:", red, green, blue);
+            display.color = Qt.rgba(red, green, blue, alphaChannel)
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -18,7 +28,6 @@ Window {
             id: display
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height / 2
-            color: Qt.rgba(redSlider.value, greenSlider.value, blueSlider.value, root.alphaChannel)
         }
 
         TabBar {
@@ -37,6 +46,10 @@ Window {
             TabButton {
                 text: "Set Brightness/Contrast"
                 onClicked: tabBar.onTabClicked(1)
+            }
+            TabButton {
+                text: "Result"
+                onClicked: tabBar.onTabClicked(2)
             }
         }
 
@@ -61,7 +74,7 @@ Window {
                     ColorSlider {
                         id: redSlider
                         onValueChanged: {
-                            display.color = Qt.rgba(value, greenSlider.value, blueSlider.value, root.alphaChannel)
+                            myDisplay.red = value
                         }
                     }
 
@@ -71,7 +84,7 @@ Window {
                     ColorSlider {
                         id: greenSlider
                         onValueChanged: {
-                            display.color = Qt.rgba(redSlider.value, value, blueSlider.value, root.alphaChannel)
+                            myDisplay.green = value
                         }
                     }
 
@@ -81,7 +94,7 @@ Window {
                     ColorSlider {
                         id: blueSlider
                         onValueChanged: {
-                            display.color = Qt.rgba(redSlider.value, greenSlider.value, value, root.alphaChannel)
+                            myDisplay.blue = value
                         }
                     }
                 }
@@ -103,6 +116,7 @@ Window {
                         to: 100
                         stepSize: 1
                         value: 100
+                        onValueChanged: myDisplay.brightness = value
                     }
 
                     Text {
@@ -118,10 +132,30 @@ Window {
                         to: 100
                         stepSize: 1
                         value: 100
+                        onValueChanged: myDisplay.contrast = value
                     }
                 }
             }
+            Item {
+                id: resultTab
+                ColumnLayout {
+                    anchors.centerIn: parent
+                    width: subWidth
+                    Text {
+                        text: "myDisplay"
+                    }
+                    Text {
+                        text: "- RGB: " + myDisplay.red + ", " + myDisplay.green + ", " + myDisplay.blue
+                    }
+                    Text {
+                        text: "- Brightness: " + myDisplay.brightness
+                    }
+                    Text {
+                        text: "- Contrast: " + myDisplay.contrast
+                    }
+                }
 
+            }
         }
     }
 }
