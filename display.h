@@ -37,7 +37,7 @@ private:
 signals:
     void colorChanged(double red, double green, double blue);
     void brightnessChanged(int brightness);
-    void contrastChanged(int brightness);
+    void contrastChanged(int contrast);
 };
 
 #endif // DISPLAY_H
