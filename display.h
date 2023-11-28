@@ -19,8 +19,8 @@ public:
     void setRed(double value);
     void setGreen(double value);
     void setBlue(double value);
-    Q_INVOKABLE void setBrightness(int value);
-    Q_INVOKABLE void setContrast(int value);
+    void setBrightness(int value);
+    void setContrast(int value);
 
     double getRed() const;
     double getGreen() const;
